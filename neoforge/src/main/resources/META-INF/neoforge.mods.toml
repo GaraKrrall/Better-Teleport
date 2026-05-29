@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "Mozilla Public License 2.0"
+
+[[mods]]
+modId = "better_teleport"
+version = "${version}"
+displayName = "Better Teleport"
+authors = "GaraKrral"
+description = '''
+
+'''
+#logoFile = ""
+
+[[dependencies.better_teleport]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.better_teleport]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,1.21.1)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.better_teleport]]
+modId = "architectury"
+type = "required"
+versionRange = "[13.0.8,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "better_teleport.mixins.json"
