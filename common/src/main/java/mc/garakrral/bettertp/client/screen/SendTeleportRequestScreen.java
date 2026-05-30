@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -317,8 +318,13 @@ public class SendTeleportRequestScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button != 0) return super.mouseClicked(mouseX, mouseY, button);
+    public boolean mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl) {
+        if (mouseButtonEvent.button() != 0) {
+            return super.mouseClicked(mouseButtonEvent, bl);
+        }
+
+        double mouseX = mouseButtonEvent.x();
+        double mouseY = mouseButtonEvent.y();
 
         for (int i = this.clickTargets.size() - 1; i >= 0; i--) {
             RectAction action = this.clickTargets.get(i);
@@ -333,7 +339,7 @@ public class SendTeleportRequestScreen extends Screen {
             return true;
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(mouseButtonEvent, bl);
     }
 
     private boolean isInsidePanel(double mouseX, double mouseY) {

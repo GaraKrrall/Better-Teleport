@@ -4,10 +4,14 @@ import com.mojang.blaze3d.platform.InputConstants;
 import mc.garakrral.bettertp.client.screen.SendTeleportRequestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class MainClient {
     public static KeyMapping OPEN_MENU_KEY;
+
+    public static final KeyMapping.Category BETTERTP_CATEGORY =
+            KeyMapping.Category.register(Identifier.fromNamespaceAndPath("bettertp", "keybinds"));
 
     private MainClient() {}
 
@@ -19,7 +23,7 @@ public class MainClient {
                 "key.better_teleport.open_menu",
                 InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_R,
-                "key.categories.bettertp"
+                BETTERTP_CATEGORY
         );
     }
 

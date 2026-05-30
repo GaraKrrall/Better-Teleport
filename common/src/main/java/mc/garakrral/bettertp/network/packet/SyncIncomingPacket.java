@@ -8,7 +8,7 @@ import mc.garakrral.bettertp.teleport.TpRequestEntry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public record SyncIncomingPacket(
         List<TpRequestEntry> entries
@@ -16,7 +16,7 @@ public record SyncIncomingPacket(
 
     public static final Type<SyncIncomingPacket> TYPE =
             new Type<>(
-                    ResourceLocation.fromNamespaceAndPath(
+                    Identifier.fromNamespaceAndPath(
                             Main.MOD_ID,
                             "sync_incoming"
                     )
