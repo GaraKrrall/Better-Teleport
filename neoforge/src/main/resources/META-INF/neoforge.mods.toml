@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.better_teleport]]
 modId = "minecraft"
 type = "required"
-versionRange = "1.21.7"
+versionRange = "1.21.8"
 ordering = "NONE"
 side = "BOTH"
 
