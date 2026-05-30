@@ -1,5 +1,6 @@
 package mc.garakrral.bettertp.client.screen;
 
+import com.mojang.authlib.GameProfile;
 import mc.garakrral.bettertp.client.state.TpRequestClientState;
 import mc.garakrral.bettertp.network.BetterTpNetwork;
 
@@ -7,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -67,14 +69,26 @@ public class SendTeleportRequestScreen extends Screen {
         this.players.clear();
 
         Minecraft mc = this.minecraft;
-        if (mc == null || mc.level == null || mc.player == null) {
+        if (mc == null || mc.getConnection() == null || mc.player == null) {
             return;
         }
 
-        for (Player player : mc.level.players()) {
-            if (player == mc.player) continue;
-            this.players.add(new PlayerRow(player.getUUID(), player.getName().getString()));
+        for (PlayerInfo info : mc.getConnection().getOnlinePlayers()) {
+            GameProfile profile = info.getProfile();
+
+            UUID uuid = profile.id();
+
+            if (uuid.equals(mc.player.getUUID()))
+                continue;
+
+            this.players.add(
+                    new PlayerRow(
+                            uuid,
+                            profile.name()
+                    )
+            );
         }
+
 
         this.players.sort((a, b) -> a.name.compareToIgnoreCase(b.name));
         recomputeScroll();
