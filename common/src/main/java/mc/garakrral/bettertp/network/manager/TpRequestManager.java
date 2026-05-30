@@ -1,10 +1,6 @@
 package mc.garakrral.bettertp.network.manager;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import mc.garakrral.bettertp.network.BetterTpNetwork;
 import mc.garakrral.bettertp.teleport.TpRequestEntry;
@@ -39,9 +35,15 @@ public final class TpRequestManager {
         if (requester != null) {
             requester.teleportTo(
                     target.serverLevel(),
-                    target.getX(), target.getY(), target.getZ(),
-                    requester.getYRot(), requester.getXRot()
+                    target.getX(),
+                    target.getY(),
+                    target.getZ(),
+                    Set.of(),
+                    requester.getYRot(),
+                    requester.getXRot(),
+                    true
             );
+
             BetterTpNetwork.pushToastToClient(requester, "Teleport request accepted!", target.getName().getString());
         }
 

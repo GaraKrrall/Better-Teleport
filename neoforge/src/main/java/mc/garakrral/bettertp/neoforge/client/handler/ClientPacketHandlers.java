@@ -15,7 +15,7 @@ public final class ClientPacketHandlers {
     ) {
 
         Minecraft.getInstance()
-                .getToasts()
+                .getToastManager()
                 .addToast(
                         new SimpleModTextToast(
                                 Component.literal(packet.title()),

@@ -27,7 +27,7 @@ public class FabricClientNetworkHandler {
                         context.client().execute(() ->
 
                                 Minecraft.getInstance()
-                                        .getToasts()
+                                        .getToastManager()
                                         .addToast(
                                                 new SimpleModTextToast(
                                                         Component.literal(packet.title()),

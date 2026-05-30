@@ -3,7 +3,10 @@ package mc.garakrral.bettertp.client.screen;
 import mc.garakrral.bettertp.client.state.TpRequestClientState;
 import mc.garakrral.bettertp.network.BetterTpNetwork;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.toasts.Toast;
+import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -393,10 +396,13 @@ public class SendTeleportRequestScreen extends Screen {
         }
     }
 
-    private static final class SimpleTextToast implements net.minecraft.client.gui.components.toasts.Toast {
+    private static final class SimpleTextToast implements Toast {
+
         private final Component title;
         private final Component subtitle;
         private long started;
+
+        private Toast.Visibility visibility = Visibility.SHOW;
 
         private SimpleTextToast(Component title, Component subtitle) {
             this.title = title;
@@ -404,17 +410,27 @@ public class SendTeleportRequestScreen extends Screen {
         }
 
         @Override
-        public Visibility render(GuiGraphics graphics, net.minecraft.client.gui.components.toasts.ToastComponent toastComponent, long time) {
-            if (started == 0L) started = time;
+        public Visibility getWantedVisibility() {
+            return visibility;
+        }
 
-            int x = 0;
-            int y = 0;
+        @Override
+        public void update(ToastManager toastManager, long time) {
+            if (started == 0L) {
+                started = time;
+            }
 
-            graphics.fill(x, y, x + 160, y + 32, 0xFF202020);
-            graphics.drawString(Minecraft.getInstance().font, title, x + 8, y + 7, 0xFFFFFF, false);
-            graphics.drawString(Minecraft.getInstance().font, subtitle, x + 8, y + 18, 0xB0B0B0, false);
+            if (time - started >= 3000L) {
+                visibility = Visibility.HIDE;
+            }
+        }
 
-            return time - started >= 3000L ? Visibility.HIDE : Visibility.SHOW;
+        @Override
+        public void render(GuiGraphics graphics, Font font, long time) {
+            graphics.fill(0, 0, 160, 32, 0xFF202020);
+
+            graphics.drawString(font, title, 8, 7, 0xFFFFFF, false);
+            graphics.drawString(font, subtitle, 8, 18, 0xB0B0B0, false);
         }
     }
 }

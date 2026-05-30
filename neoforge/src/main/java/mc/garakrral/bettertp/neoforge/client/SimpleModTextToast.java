@@ -1,29 +1,44 @@
 package mc.garakrral.bettertp.neoforge.client;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
-import net.minecraft.client.gui.components.toasts.ToastComponent;
+import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.network.chat.Component;
 
 public final class SimpleModTextToast implements Toast {
     private final Component title;
-    private final Component body;
-    private long started = -1L;
+    private final Component subtitle;
+    private long started;
 
-    public SimpleModTextToast(Component title, Component body) {
+    private Toast.Visibility visibility = Visibility.SHOW;
+
+    public SimpleModTextToast(Component title, Component subtitle) {
         this.title = title;
-        this.body = body;
+        this.subtitle = subtitle;
     }
 
     @Override
-    public Visibility render(GuiGraphics graphics, ToastComponent toastComponent, long time) {
-        if (started < 0L) started = time;
+    public Visibility getWantedVisibility() {
+        return visibility;
+    }
 
+    @Override
+    public void update(ToastManager toastManager, long time) {
+        if (started == 0L) {
+            started = time;
+        }
+
+        if (time - started >= 3000L) {
+            visibility = Visibility.HIDE;
+        }
+    }
+
+    @Override
+    public void render(GuiGraphics graphics, Font font, long time) {
         graphics.fill(0, 0, 160, 32, 0xFF202020);
-        graphics.drawString(Minecraft.getInstance().font, title, 8, 7, 0xFFFFFF, false);
-        graphics.drawString(Minecraft.getInstance().font, body, 8, 18, 0xB0B0B0, false);
 
-        return time - started >= 3000L ? Visibility.HIDE : Visibility.SHOW;
+        graphics.drawString(font, title, 8, 7, 0xFFFFFF, false);
+        graphics.drawString(font, subtitle, 8, 18, 0xB0B0B0, false);
     }
 }
