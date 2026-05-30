@@ -32,7 +32,11 @@ public final class TpRequestManager {
         TpRequestEntry entry = map.remove(requesterUuid);
         if (entry == null) return;
 
-        ServerPlayer requester = target.getServer().getPlayerList().getPlayer(requesterUuid);
+        ServerPlayer requester = target.level()
+                .getServer()
+                .getPlayerList()
+                .getPlayer(requesterUuid);
+
         if (requester != null) {
             ServerLevel level = (ServerLevel) target.level();
 
@@ -61,7 +65,11 @@ public final class TpRequestManager {
         TpRequestEntry entry = map.remove(requesterUuid);
         if (entry == null) return;
 
-        ServerPlayer requester = target.getServer().getPlayerList().getPlayer(requesterUuid);
+        ServerPlayer requester = target.level()
+                .getServer()
+                .getPlayerList()
+                .getPlayer(requesterUuid);
+
         if (requester != null) {
             BetterTpNetwork.pushToastToClient(requester, "Teleport request rejected!", target.getName().getString());
         }
