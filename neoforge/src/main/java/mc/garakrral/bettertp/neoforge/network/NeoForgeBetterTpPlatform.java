@@ -8,27 +8,28 @@ import mc.garakrral.bettertp.network.packet.*;
 import mc.garakrral.bettertp.teleport.TpRequestEntry;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public final class NeoForgeBetterTpPlatform implements BetterTpPlatform {
 
     @Override
     public void requestSync() {
-        PacketDistributor.sendToServer(
+        ClientPacketDistributor.sendToServer(
                 new RequestSyncPacket()
         );
     }
 
     @Override
     public void sendRequestToServer(UUID targetUuid) {
-        PacketDistributor.sendToServer(
+        ClientPacketDistributor.sendToServer(
                 new RequestTpPacket(targetUuid)
         );
     }
 
     @Override
     public void sendReplyToServer(UUID requesterUuid, boolean accept) {
-        PacketDistributor.sendToServer(
+        ClientPacketDistributor.sendToServer(
                 new ReplyTpPacket(
                         requesterUuid,
                         accept
