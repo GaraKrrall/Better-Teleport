@@ -68,7 +68,7 @@ public final class BetterTpNetwork {
                                 context.player();
 
                         ServerPlayer target =
-                                requester.server
+                                requester.getServer()
                                         .getPlayerList()
                                         .getPlayer(
                                                 packet.targetUuid()

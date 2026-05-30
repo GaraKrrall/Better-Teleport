@@ -4,6 +4,7 @@ import java.util.*;
 
 import mc.garakrral.bettertp.network.BetterTpNetwork;
 import mc.garakrral.bettertp.teleport.TpRequestEntry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 public final class TpRequestManager {
@@ -31,10 +32,12 @@ public final class TpRequestManager {
         TpRequestEntry entry = map.remove(requesterUuid);
         if (entry == null) return;
 
-        ServerPlayer requester = target.server.getPlayerList().getPlayer(requesterUuid);
+        ServerPlayer requester = target.getServer().getPlayerList().getPlayer(requesterUuid);
         if (requester != null) {
+            ServerLevel level = (ServerLevel) target.level();
+
             requester.teleportTo(
-                    target.serverLevel(),
+                    level,
                     target.getX(),
                     target.getY(),
                     target.getZ(),
@@ -58,7 +61,7 @@ public final class TpRequestManager {
         TpRequestEntry entry = map.remove(requesterUuid);
         if (entry == null) return;
 
-        ServerPlayer requester = target.server.getPlayerList().getPlayer(requesterUuid);
+        ServerPlayer requester = target.getServer().getPlayerList().getPlayer(requesterUuid);
         if (requester != null) {
             BetterTpNetwork.pushToastToClient(requester, "Teleport request rejected!", target.getName().getString());
         }

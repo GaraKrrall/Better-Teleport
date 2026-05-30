@@ -38,7 +38,7 @@ public final class SimpleModTextToast implements Toast {
     public void render(GuiGraphics graphics, Font font, long time) {
         graphics.fill(0, 0, 160, 32, 0xFF202020);
 
-        graphics.drawString(font, title, 8, 7, 0xFFFFFF, false);
-        graphics.drawString(font, subtitle, 8, 18, 0xB0B0B0, false);
+        graphics.drawString(font, title, 8, 7, 0xFFFFFFFF, false);
+        graphics.drawString(font, subtitle, 8, 18, 0xFFB0B0B0, false);
     }
 }

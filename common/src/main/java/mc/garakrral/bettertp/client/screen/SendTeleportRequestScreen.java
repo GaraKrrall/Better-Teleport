@@ -118,7 +118,7 @@ public class SendTeleportRequestScreen extends Screen {
         drawTabs(graphics, mouseX, mouseY);
         drawPage(graphics, mouseX, mouseY);
 
-        graphics.drawString(this.font, TITLE, this.panelX + 8, this.panelY + 8, 0xFFFFFF, false);
+        graphics.drawString(this.font, TITLE, this.panelX + 8, this.panelY + 8, 0xFFFFFFFF, false);
     }
 
     private void drawPanel(GuiGraphics graphics) {
@@ -152,7 +152,7 @@ public class SendTeleportRequestScreen extends Screen {
 
         int textX = x + (w - this.font.width(label)) / 2;
         int textY = y + 6;
-        graphics.drawString(this.font, label, textX, textY, selected ? 0xFFFFFF : 0xB0B0B0, false);
+        graphics.drawString(this.font, label, textX, textY, selected ? 0xFFFFFFFF : 0xFFB0B0B0, false);
 
         this.clickTargets.add(new RectAction(x, y, w, h, () -> {
             this.currentPage = page;
@@ -197,7 +197,7 @@ public class SendTeleportRequestScreen extends Screen {
 
             int nameX = listX + 6;
             int nameY = rowY + 10;
-            graphics.drawString(this.font, row.name, nameX, nameY, 0xFFFFFF, false);
+            graphics.drawString(this.font, row.name, nameX, nameY, 0xFFFFFFFF, false);
 
             int btnW = 74;
             int btnH = 20;
@@ -217,7 +217,7 @@ public class SendTeleportRequestScreen extends Screen {
             Component text = sent ? Component.literal("Sent") : REQUEST_TEXT;
             int textX = btnX + (btnW - this.font.width(text)) / 2;
             int textY = btnY + 6;
-            graphics.drawString(this.font, text, textX, textY, sent ? 0xC0C0C0 : 0xFFFFFF, false);
+            graphics.drawString(this.font, text, textX, textY, sent ? 0xFFC0C0C0 : 0xFFFFFFFF, false);
 
             if (!sent) {
                 PlayerRow finalRow = row;
@@ -257,7 +257,7 @@ public class SendTeleportRequestScreen extends Screen {
             graphics.fill(listX, y, listX + listW, y + rowH - 1, 0xFF141414);
             graphics.fill(listX, y + rowH - 1, listX + listW, y + rowH, 0xFF2A2A2A);
 
-            graphics.drawString(this.font, req.requesterName(), listX + 6, y + 10, 0xFFFFFF, false);
+            graphics.drawString(this.font, req.requesterName(), listX + 6, y + 10, 0xFFFFFFFF, false);
 
             int btnW = 38;
             int btnH = 20;
@@ -293,19 +293,20 @@ public class SendTeleportRequestScreen extends Screen {
 
         int textX = x + (w - this.font.width(text)) / 2;
         int textY = y + 6;
-        graphics.drawString(this.font, text, textX, textY, 0xFFFFFF, false);
+        graphics.drawString(this.font, text, textX, textY, 0xFFFFFFFF, false);
     }
 
     private void drawCenteredMessage(GuiGraphics graphics, Component message, int x, int y, int w, int h) {
         int textX = x + (w - this.font.width(message)) / 2;
         int textY = y + h / 2 - 4;
-        graphics.drawString(this.font, message, textX, textY, 0xA0A0A0, false);
+        graphics.drawString(this.font, message, textX, textY, 0xFFA0A0A0, false);
     }
 
     private void sendTeleportRequest(PlayerRow row) {
         row.sending = true;
         BetterTpNetwork.sendRequestToServer(row.uuid);
     }
+
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (this.currentPage == Page.PLAYERS && isInsidePanel(mouseX, mouseY)) {
@@ -393,44 +394,6 @@ public class SendTeleportRequestScreen extends Screen {
 
         private void run() {
             action.run();
-        }
-    }
-
-    private static final class SimpleTextToast implements Toast {
-
-        private final Component title;
-        private final Component subtitle;
-        private long started;
-
-        private Toast.Visibility visibility = Visibility.SHOW;
-
-        private SimpleTextToast(Component title, Component subtitle) {
-            this.title = title;
-            this.subtitle = subtitle;
-        }
-
-        @Override
-        public Visibility getWantedVisibility() {
-            return visibility;
-        }
-
-        @Override
-        public void update(ToastManager toastManager, long time) {
-            if (started == 0L) {
-                started = time;
-            }
-
-            if (time - started >= 3000L) {
-                visibility = Visibility.HIDE;
-            }
-        }
-
-        @Override
-        public void render(GuiGraphics graphics, Font font, long time) {
-            graphics.fill(0, 0, 160, 32, 0xFF202020);
-
-            graphics.drawString(font, title, 8, 7, 0xFFFFFF, false);
-            graphics.drawString(font, subtitle, 8, 18, 0xB0B0B0, false);
         }
     }
 }

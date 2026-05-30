@@ -66,7 +66,7 @@ public final class NeoForgeNetworkHandler {
                                 (ServerPlayer) context.player();
 
                         ServerPlayer target =
-                                requester.server
+                                requester.getServer()
                                         .getPlayerList()
                                         .getPlayer(
                                                 packet.targetUuid()
