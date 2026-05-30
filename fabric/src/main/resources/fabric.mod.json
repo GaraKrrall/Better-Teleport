@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "better_teleport",
+  "version": "${version}",
+  "name": "Better Teleport",
+  "description": "",
+  "authors": [
+    "GaraKrral"
+  ],
+  "contact": {
+    "homepage": ""
+  },
+  "license": "MPL-2.0",
+  "icon": "assets/better_teleport/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "mc.garakrral.bettertp.fabric.MainFabric"
+    ],
+    "client": [
+      "mc.garakrral.bettertp.fabric.client.MainFabricClient"
+    ]
+  },
+  "mixins": [
+    "better_teleport.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "26.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
